@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'mvn jar:jar deploy:deploy'
+                sh 'mvn jar:jar deploy'
             }
         }
     }
