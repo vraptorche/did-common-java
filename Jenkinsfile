@@ -12,19 +12,25 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'mvn jar:jar deploy'
+                sh 'mvn jar:jar deploy:deploy'
             }
         }
     }
-    post {
-        always {
-            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        }
-    }
+   post {
+           success {
+               junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+               jacoco execPattern: '**/target/**.exec'
+               archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+               cleanWs()
+           }
+           failure {
+               cleanWs()
+           }
+       }
 }
