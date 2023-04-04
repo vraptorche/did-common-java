@@ -1,5 +1,6 @@
 package foundation.identity.did.representations.consumption;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import foundation.identity.did.representations.Representations;
 
@@ -22,7 +23,8 @@ public class RepresentationConsumerJSONLD extends AbstractRepresentationConsumer
 
     @Override
     public RepresentationConsumer.Result consume(byte[] representation) throws IOException {
-        Map<String, Object> map = objectMapper.readValue(representation, LinkedHashMap.class);
+        Map<String, Object> map = objectMapper.readValue(representation, new TypeReference<>() {
+        });
         return this.detectRepresentationSpecificEntries(map);
     }
 }

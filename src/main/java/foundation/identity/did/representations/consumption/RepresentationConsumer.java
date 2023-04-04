@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface RepresentationConsumer {
 
-    public static class Result {
+    class Result {
 
         public Result(Map<String, Object> didDocument, Map<String, Map<String, Object>> representationSpecificEntries) { this.didDocument = didDocument; this.representationSpecificEntries = representationSpecificEntries; }
         public Map<String, Object> didDocument;
